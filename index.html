@@ -1342,7 +1342,7 @@ window.__setTheta = t=>{ if(E) E.setTheta(t); };
 (function deskApp(){
 /* ===== 회차 목록 — 새 화가 나오면 여기에 한 줄 추가 ===== */
 const EPISODES = [
-  { no: 1, title: "롱 베케이션", en: "Long Vacation", status: "new",  date: "2026.11", cover: "ep1.jpg", insta: "", video: "https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_v3.mp4", seq: [{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_v3.mp4",end:128.2},{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_m1.mp4"},{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_v3.mp4",start:133.233,end:246.833},{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_m2.mp4"},{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_v3.mp4",start:250.9,end:256.95},{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_card_v3.mp4"},{src:"https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_p2v2.mp4"}] },
+  { no: 1, title: "롱 베케이션", en: "Long Vacation", status: "new",  date: "2026.11", cover: "ep1.jpg", insta: "", osd: false, video: "https://jvrwxwtxsjemuvedguhr.supabase.co/storage/v1/object/public/m/ep1_full_v3.mp4" },
   { no: 2, title: "롱 베케이션", en: "Long Vacation", status: "soon" },
   { no: 3, title: "롱 베케이션", en: "Long Vacation", status: "soon" },
 ];
@@ -1437,7 +1437,7 @@ function openEp(ep){
       tv.innerHTML=""; const v=document.createElement("video"); v.src=ep.video; v.controls=true; v.playsInline=true; v.setAttribute("playsinline",""); v.muted=false; v.defaultMuted=false; v.volume=1; tv.appendChild(v); { const seq=ep.seq||[{src:ep.video}].concat((ep.more||[]).map(u=>({src:u})));
       if(seq.length>1){
         const bar=document.createElement("div"); bar.className="pparts";
-        const lb=document.createElement("span"); lb.className="plabel"; lb.textContent="EP."+ep.no; bar.appendChild(lb); const ch=document.createElement("span"); ch.className="pch"; ch.textContent="フジテレビ"; bar.appendChild(ch);
+        if(ep.osd!==false){ const lb=document.createElement("span"); lb.className="plabel"; lb.textContent="EP."+ep.no; bar.appendChild(lb); const ch=document.createElement("span"); ch.className="pch"; ch.textContent="フジテレビ"; bar.appendChild(ch); }
         const tap=document.createElement("button"); tap.className="ptap"; tap.textContent="▶ 이어보기 · next";
         let cur=0; const seen={}; seen[seq[0].src]=1;
         seq.forEach(it=>{ if(seen[it.src]) return; seen[it.src]=1; const w=document.createElement("video"); w.src=it.src; w.preload="auto"; w.muted=true; w.playsInline=true; w.setAttribute("playsinline",""); w.style.display="none"; tv.appendChild(w); });
